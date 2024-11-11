@@ -9,9 +9,7 @@ return {
     "leoluz/nvim-dap-go",
     dependencies = { "mfussenegger/nvim-dap" },
     ft = "go",
-    config = function(_, opts)
-      require("dap-go").setup(opts)
-    end,
+    config = function(_, opts) require("dap-go").setup(opts) end,
   },
   {
     "ray-x/go.nvim",
@@ -68,6 +66,5 @@ return {
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
-  }
+  },
 }
-

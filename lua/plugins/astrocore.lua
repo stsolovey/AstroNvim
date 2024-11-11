@@ -32,6 +32,12 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        -- tabstop = 4, -- number of spaces a tab counts for
+        -- shiftwidth = 4, -- number of spaces to use for autoindent
+        -- softtabstop = 4, -- number of spaces a tab counts for while editing
+        -- expandtab = true, -- convert tabs to spaces
+        -- autoindent = true, -- copy indent from current line when starting new line
+        -- smartindent = true, -- do smart autoindenting when starting a new line
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -60,37 +66,37 @@ return {
           desc = "Close buffer from tabline",
         },
 
-               -- Создаем подменю для Go команд под клавишей <leader>g
+        -- Создаем подменю для Go команд под клавишей <leader>g
         ["<leader>g"] = { desc = "Go Tools" },
-        
+
         -- Тесты
         ["<leader>gt"] = { desc = "Go Tests" },
         ["<leader>gtt"] = { "<cmd>GoTest<cr>", desc = "Run Tests" },
         ["<leader>gtf"] = { "<cmd>GoTestFunc<cr>", desc = "Test Function" },
         ["<leader>gtF"] = { "<cmd>GoTestFile<cr>", desc = "Test File" },
         ["<leader>gtc"] = { "<cmd>GoCoverage<cr>", desc = "Test Coverage" },
-        
+
         -- Инструменты разработки
         ["<leader>gi"] = { desc = "Go Implementation" },
         ["<leader>gii"] = { "<cmd>GoImpl<cr>", desc = "Implement Interface" },
         ["<leader>gif"] = { "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
         ["<leader>gip"] = { "<cmd>GoFixPlurals<cr>", desc = "Fix Plurals" },
-        
+
         -- Управление тегами
         ["<leader>ga"] = { desc = "Go Tags" },
         ["<leader>gaa"] = { "<cmd>GoAddTag<cr>", desc = "Add Tags" },
         ["<leader>gar"] = { "<cmd>GoRmTag<cr>", desc = "Remove Tags" },
-        
+
         -- Генерация кода
         ["<leader>gc"] = { desc = "Go Generate" },
         ["<leader>gcm"] = { "<cmd>GoMockGen<cr>", desc = "Generate Mock" },
         ["<leader>gcc"] = { "<cmd>GoCmt<cr>", desc = "Generate Comment" },
-        
+
         -- Управление модулями
         ["<leader>gm"] = { desc = "Go Modules" },
         ["<leader>gmt"] = { "<cmd>GoModTidy<cr>", desc = "Go Mod Tidy" },
         ["<leader>gmg"] = { "<cmd>GoGet<cr>", desc = "Go Get" },
-        
+
         -- Обновление инструментов
         ["<leader>gu"] = { desc = "Go Update" },
         ["<leader>gui"] = { "<cmd>GoInstallBinaries<cr>", desc = "Install Binaries" },

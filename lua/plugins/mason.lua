@@ -12,6 +12,8 @@ return {
       ensure_installed = {
         "lua_ls",
         "gopls",
+        "clang",
+        "cmake",
         -- add more arguments for adding more language servers
       },
     },
@@ -23,9 +25,11 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        "gofumpt",    -- Go formatter
-        "goimports",  -- Go imports formatter
+        "gofumpt", -- Go formatter
+        "goimports", -- Go imports formatter
         "golangci-lint", -- Go linter
+        "clang-format", -- C/C++ formatter
+        "cpplint", -- C++ linter
         -- add more arguments for adding more null-ls sources
       },
     },
@@ -36,7 +40,8 @@ return {
     opts = {
       ensure_installed = {
         "python",
-        "delve",  -- Go debugger
+        "delve", -- Go debugger
+        "codelldb", -- C/C++ debugger
         -- add more arguments for adding more debuggers
       },
     },

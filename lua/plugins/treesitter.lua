@@ -13,6 +13,10 @@ return {
       "gomod",
       "gowork",
       "gosum",
+      "c",
+      "cpp",
+      "make",
+      "cmake",
       -- add more arguments for adding more treesitter parsers
     },
   },
