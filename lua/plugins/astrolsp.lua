@@ -1,10 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
--- Configuration documentation can be found with `:h astrolsp`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
-
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -44,7 +37,27 @@ return {
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
-      -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      -- Python configuration
+      ruff = {
+        init_options = {
+          settings = {
+            -- Ruff settings
+            args = {},
+          },
+        },
+      },
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "workspace",
+            },
+          },
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {

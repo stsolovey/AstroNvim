@@ -18,6 +18,11 @@ return {
       "make",
       "cmake",
       -- add more arguments for adding more treesitter parsers
+
+      -- Python:
+      "python", -- Python syntax
+      "toml", -- For pyproject.toml
+      "requirements", -- For requirements.txt
     },
   },
 }

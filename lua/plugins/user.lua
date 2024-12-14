@@ -1,16 +1,13 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- You can also add or configure plugins by creating files in this `plugins/` folder
--- Here are some examples:
-
 ---@type LazySpec
 return {
+  -- Go debugging
   {
     "leoluz/nvim-dap-go",
     dependencies = { "mfussenegger/nvim-dap" },
     ft = "go",
     config = function(_, opts) require("dap-go").setup(opts) end,
   },
+  -- Go development plugin
   {
     "ray-x/go.nvim",
     dependencies = {
@@ -18,6 +15,9 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()',
     opts = {
       -- Основные настройки
       go = "go", -- путь к go binary
@@ -29,11 +29,6 @@ return {
       test_template = "", -- шаблон для тестов
       test_template_dir = "", -- директория с шаблонами тестов
       comment_placeholder = "   ", -- плейсхолдер для комментариев
-      -- Настройки icons (если установлен Nerd Font)
-      icons = {
-        breakpoint = "🔴",
-        currentpos = "🔷",
-      },
       -- Настройки для тестирования
       test_runner = "go",
       run_in_floaterm = false, -- запускать тесты в floating terminal
@@ -62,9 +57,81 @@ return {
       -- Настройки для mock генерации
       mock_timeout = 10000,
       mock_version = "",
+      -- Настройки icons (если установлен Nerd Font)
+      -- icons = {
+      --   breakpoint = "🔴",
+      --   currentpos = "🔷",
+      -- },
     },
-    event = { "CmdlineEnter" },
-    ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()',
+  },
+  -- gRPC tools
+  {
+    "hudclark/grpc-nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  -- PlantUML support
+  {
+    "https://gitlab.com/itaranto/plantuml.nvim",
+    version = "*",
+    config = function() require("plantuml").setup() end,
+  },
+  -- YANG syntax support
+  { "nathanalderson/yang.vim" },
+  -- Database tools
+  { "tpope/vim-dadbod" },
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql", "clickhouse" }, lazy = true },
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      -- Основные настройки DBUI
+      vim.g.db_ui_use_nerd_fonts = 1
+      -- Предустановленные соединения
+      vim.g.db_ui_save_location = vim.fn.stdpath "config" .. "/db_ui"
+      -- Примеры соединений для разных БД
+      vim.g.dbs = {
+        -- ClickHouse соединение
+        {
+          name = "ClickHouse Local",
+          url = "clickhouse://default:@localhost:9000/default",
+        },
+      }
+    end,
+  },
+  -- Git integration
+  { "tpope/vim-fugitive" },
+  -- Python virtual environment selector
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    opts = {
+      name = {
+        "venv",
+        ".venv",
+        ".env",
+        "env",
+      },
+      search = true,
+    },
+    cmd = "VenvSelect",
+  },
+  -- Python debugging
+  {
+    "mfussenegger/nvim-dap-python",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      local dap_python = require "dap-python"
+      dap_python.setup "~/.virtualenvs/debugpy/bin/python"
+      dap_python.test_runner = "pytest"
+    end,
+    ft = "python",
   },
 }

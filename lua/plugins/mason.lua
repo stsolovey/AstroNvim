@@ -1,7 +1,3 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize Mason plugins
-
 ---@type LazySpec
 return {
   -- use mason-lspconfig to configure LSP installations
@@ -12,9 +8,11 @@ return {
       ensure_installed = {
         "lua_ls",
         "gopls",
-        "clang",
+        "clangd",
         "cmake",
-        -- add more arguments for adding more language servers
+
+        -- Python:
+        "pyright", -- Python LSP
       },
     },
   },
@@ -31,6 +29,12 @@ return {
         "clang-format", -- C/C++ formatter
         "cpplint", -- C++ linter
         -- add more arguments for adding more null-ls sources
+
+        -- Python:
+        "black", -- Python formatter
+        "isort", -- Python import formatter
+        "ruff", -- Python linter
+        "mypy", -- Python static type checker
       },
     },
   },

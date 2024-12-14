@@ -1,10 +1,3 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
--- Configuration documentation can be found with `:h astrocore`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
-
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -32,6 +25,7 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        mouse = "a", -- enable mouse in all modes
         -- tabstop = 4, -- number of spaces a tab counts for
         -- shiftwidth = 4, -- number of spaces to use for autoindent
         -- softtabstop = 4, -- number of spaces a tab counts for while editing
@@ -102,12 +96,70 @@ return {
         ["<leader>gui"] = { "<cmd>GoInstallBinaries<cr>", desc = "Install Binaries" },
         ["<leader>guu"] = { "<cmd>GoUpdateBinaries<cr>", desc = "Update Binaries" },
 
+        -- Todo comments
+        ["<leader>ft"] = { "<cmd>TodoTelescope<cr>", desc = "Search TODOs" },
+
+        -- Text case
+        ["<leader>tc"] = { desc = "Text Case" },
+        ["<leader>tcc"] = { function() require("textcase").current_word "to_camel_case" end, desc = "camelCase" },
+        ["<leader>tcs"] = { function() require("textcase").current_word "to_snake_case" end, desc = "snake_case" },
+        ["<leader>tcp"] = { function() require("textcase").current_word "to_pascal_case" end, desc = "PascalCase" },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+        --
+        -- -- set up Ctrl+click for references
+        ["<C-LeftMouse>"] = { "<LeftMouse><cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to definition" },
+        ["<M-LeftMouse>"] = { "<LeftMouse><cmd>Telescope lsp_references<cr>", desc = "Show references" },
+
+        ["<leader>cl"] = {
+          function() vim.lsp.codelens.refresh() end,
+          desc = "Refresh CodeLens",
+        },
+
+        ["<leader>L"] = { desc = "Linting" },
+        ["<leader>Lc"] = {
+          function()
+            vim.diagnostic.reset()
+            vim.diagnostic.open_float()
+          end,
+          desc = "Show Diagnostics",
+        },
+        ["<leader>Li"] = { "<cmd>NullLsInfo<cr>", desc = "Show Linter Info" },
+
+        ------------------------- Python Start --------------------------
+        ---
+        -- Create Python submenu
+        ["<leader>p"] = { desc = "Python Tools" },
+
+        -- Virtual Environment
+        ["<leader>pv"] = { desc = "Virtual Environment" },
+        ["<leader>pvs"] = { "<cmd>VenvSelect<cr>", desc = "Select Virtualenv" },
+        ["<leader>pvc"] = { "<cmd>VenvSelectCached<cr>", desc = "Select Cached Virtualenv" },
+
+        -- Testing
+        ["<leader>pt"] = { desc = "Python Tests" },
+        ["<leader>ptr"] = { "<cmd>Neotest run<cr>", desc = "Run nearest test" },
+        ["<leader>ptf"] = { "<cmd>Neotest run file<cr>", desc = "Test File" },
+        ["<leader>pts"] = { "<cmd>Neotest summary<cr>", desc = "Test Summary" },
+        ["<leader>pto"] = { "<cmd>Neotest output<cr>", desc = "Test Output" },
+
+        -- Debugging
+        ["<leader>pd"] = { desc = "Debug" },
+        ["<leader>pdd"] = { "<cmd>lua require('dap-python').debug_selection()<cr>", desc = "Debug Selection" },
+        ["<leader>pdt"] = { "<cmd>lua require('dap-python').test_method()<cr>", desc = "Debug Method" },
+        ["<leader>pdc"] = { "<cmd>lua require('dap-python').test_class()<cr>", desc = "Debug Class" },
+
+        -- LSP actions
+        ["<leader>pi"] = { desc = "Import Organization" },
+        ["<leader>pii"] = { "<cmd>PyrightOrganizeImports<cr>", desc = "Organize Imports" },
+        ["<leader>pir"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename Symbol" },
+        ---
+        ------------------------- Python End -------------------------
       },
     },
   },
