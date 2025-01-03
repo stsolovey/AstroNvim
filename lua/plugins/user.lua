@@ -32,6 +32,56 @@ return {
       -- Настройки для тестирования
       test_runner = "go",
       run_in_floaterm = false, -- запускать тесты в floating terminal
+      test_efm = false,
+      test_timeout = "30s", -- timeout for tests
+      test_env = { -- environment variables for tests
+        GO_TEST_PARALLEL = "8", -- enable parallel testing
+      },
+      verbose_tests = true, -- enable verbose test output
+      -- Coverage settings
+      coverage_handler = function(data)
+        -- Store last coverage file
+        vim.g.last_coverage_file = data.coverprofile
+
+        -- Add signs for coverage
+        require("go.coverage").show()
+
+        -- Generate and store HTML report
+        local html_file = vim.fn.expand "%:p:h" .. "/coverage.html"
+        vim.fn.system("go tool cover -html=" .. data.coverprofile .. " -o " .. html_file)
+        vim.g.last_coverage_html = html_file
+      end,
+      coverage_sign = "│", -- or "█" if you prefer block
+      coverage_sign_priority = 10,
+      -- Custom commands
+      commands = {
+        coverage_clear = function()
+          -- Clear signs
+          vim.fn.sign_unplace "GoCoverage"
+          -- Clear highlighting
+          vim.cmd "highlight clear GoCoverageCovered"
+          vim.cmd "highlight clear GoCoverageUncovered"
+          -- Remove temporary files
+          if vim.g.last_coverage_file then
+            vim.fn.delete(vim.g.last_coverage_file)
+            vim.g.last_coverage_file = nil
+          end
+          if vim.g.last_coverage_html then
+            vim.fn.delete(vim.g.last_coverage_html)
+            vim.g.last_coverage_html = nil
+          end
+        end,
+        coverage_browser = function()
+          if vim.g.last_coverage_html then
+            -- For Linux
+            vim.fn.system("xdg-open " .. vim.g.last_coverage_html)
+          -- For macOS (uncomment if needed)
+          -- vim.fn.system('open ' .. vim.g.last_coverage_html)
+          else
+            vim.notify("No coverage report available. Run coverage first.", vim.log.levels.WARN)
+          end
+        end,
+      },
       -- Настройки линтера
       linter = "golangci-lint",
       linter_flags = "",
@@ -52,7 +102,6 @@ return {
       tags_flags = { "-transform", "snakecase" },
       -- Настройки для функций
       trouble = false, -- интеграция с trouble.nvim
-      test_efm = false, -- использовать efm-langserver
       luasnip = true,
       -- Настройки для mock генерации
       mock_timeout = 10000,
@@ -108,6 +157,41 @@ return {
   },
   -- Git integration
   { "tpope/vim-fugitive" },
+  {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- Making sure it loads only when needed
+    lazy = true,
+    config = function()
+      -- LazyGit configuration options
+      vim.g.lazygit_floating_window_winblend = 0
+      vim.g.lazygit_floating_window_scaling_factor = 0.9
+      vim.g.lazygit_floating_window_border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+      vim.g.lazygit_floating_window_use_plenary = 0
+      vim.g.lazygit_use_neovim_remote = 1
+
+      -- Load telescope extension
+      require("telescope").load_extension "lazygit"
+    end,
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
+      {
+        "<leader>gG",
+        function() require("telescope").extensions.lazygit.lazygit() end,
+        desc = "LazyGit Repository Selector",
+      },
+    },
+  },
   -- Python virtual environment selector
   {
     "linux-cultist/venv-selector.nvim",

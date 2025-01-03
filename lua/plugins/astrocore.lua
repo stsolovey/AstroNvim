@@ -60,77 +60,128 @@ return {
           desc = "Close buffer from tabline",
         },
 
-        -- Создаем подменю для Go команд под клавишей <leader>g
-        ["<leader>g"] = { desc = "Go Tools" },
+        -- --------------------------------- Main Testing Menu ----------------------------------
+        -- --------------------------------- ================= ----------------------------------
+        -- ["<leader>T"] = { desc = "Testing" },
+        --
+        -- -- Quick Test Actions
+        -- ["<leader>TT"] = { "<cmd>GoTest<cr>", desc = "Test Package" },
+        -- ["<leader>Tf"] = { "<cmd>GoTestFunc<cr>", desc = "Test Function" },
+        -- ["<leader>TF"] = { "<cmd>GoTestFile<cr>", desc = "Test File" },
+        -- ["<leader>Ta"] = { "<cmd>GoTestAll<cr>", desc = "Test All" },
+        --
+        -- -- Test Configuration
+        -- ["<leader>Ts"] = { desc = "Settings" },
+        -- ["<leader>Tsp"] = {
+        --   function()
+        --     local count = vim.fn.input "Number of parallel tests: "
+        --     vim.env.GO_TEST_PARALLEL = count
+        --     vim.notify("Parallel tests set to: " .. count)
+        --   end,
+        --   desc = "Set Parallel Count",
+        -- },
+        -- ["<leader>Tsv"] = {
+        --   function()
+        --     vim.g.go_test_verbose = not vim.g.go_test_verbose
+        --     vim.notify("Verbose testing: " .. (vim.g.go_test_verbose and "enabled" or "disabled"))
+        --   end,
+        --   desc = "Toggle Verbose",
+        -- },
+        -- ["<leader>Tst"] = {
+        --   function()
+        --     local timeout = vim.fn.input "Test timeout (e.g., 30s, 1m): "
+        --     vim.g.go_test_timeout = timeout
+        --     vim.notify("Test timeout set to: " .. timeout)
+        --   end,
+        --   desc = "Set Timeout",
+        -- },
+        --
+        -- -- Coverage commands
+        -- ["<leader>Tc"] = { desc = "Coverage" },
+        -- ["<leader>Tct"] = { "<cmd>GoCoverage<cr>", desc = "Toggle Coverage" },
+        -- ["<leader>Tcc"] = { function() require("go").commands.coverage_clear() end, desc = "Clear Coverage" },
+        -- ["<leader>Tcb"] = { function() require("go").commands.coverage_browser() end, desc = "Open in Browser" },
+        -- ["<leader>Tcs"] = { "<cmd>GoTestSum<cr>", desc = "Coverage Summary" },
+        --
+        -- -- Test Output/Results
+        -- ["<leader>To"] = { desc = "Output" },
+        -- ["<leader>Tos"] = { "<cmd>GoTestSum<cr>", desc = "Summary" },
+        -- ["<leader>Tov"] = { "<cmd>GoVet<cr>", desc = "Go Vet" },
+        -- --------------------------------------------------------------------
+        -- --------------------------------------------------------------------
+        ------------------ GO TOOLS ----------------------------------------
+        ------------------==========----------------------------------------
+        -- Создаем подменю для Go команд под клавишей <leader>G
+        ["<leader>G"] = { desc = "Go Tools" },
 
         -- Тесты
-        ["<leader>gt"] = { desc = "Go Tests" },
-        ["<leader>gtt"] = { "<cmd>GoTest<cr>", desc = "Run Tests" },
-        ["<leader>gtf"] = { "<cmd>GoTestFunc<cr>", desc = "Test Function" },
-        ["<leader>gtF"] = { "<cmd>GoTestFile<cr>", desc = "Test File" },
-        ["<leader>gtc"] = { "<cmd>GoCoverage<cr>", desc = "Test Coverage" },
+        ["<leader>Gt"] = { desc = "Go Tests" },
+        ["<leader>Gtt"] = { "<cmd>GoTest<cr>", desc = "Run Tests" },
+        ["<leader>Gtf"] = { "<cmd>GoTestFunc<cr>", desc = "Test Function" },
+        ["<leader>GtF"] = { "<cmd>GoTestFile<cr>", desc = "Test File" },
+        ["<leader>Gtc"] = { "<cmd>GoCoverage<cr>", desc = "Test Coverage" },
 
         -- Инструменты разработки
-        ["<leader>gi"] = { desc = "Go Implementation" },
-        ["<leader>gii"] = { "<cmd>GoImpl<cr>", desc = "Implement Interface" },
-        ["<leader>gif"] = { "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
-        ["<leader>gip"] = { "<cmd>GoFixPlurals<cr>", desc = "Fix Plurals" },
+        ["<leader>Gi"] = { desc = "Go Implementation" },
+        ["<leader>Gii"] = { "<cmd>GoImpl<cr>", desc = "Implement Interface" },
+        ["<leader>Gif"] = { "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
+        ["<leader>Gip"] = { "<cmd>GoFixPlurals<cr>", desc = "Fix Plurals" },
 
         -- Управление тегами
-        ["<leader>ga"] = { desc = "Go Tags" },
-        ["<leader>gaa"] = { "<cmd>GoAddTag<cr>", desc = "Add Tags" },
-        ["<leader>gar"] = { "<cmd>GoRmTag<cr>", desc = "Remove Tags" },
+        ["<leader>Ga"] = { desc = "Go Tags" },
+        ["<leader>Gaa"] = { "<cmd>GoAddTag<cr>", desc = "Add Tags" },
+        ["<leader>Gar"] = { "<cmd>GoRmTag<cr>", desc = "Remove Tags" },
 
-        -- Генерация кода
-        ["<leader>gc"] = { desc = "Go Generate" },
-        ["<leader>gcm"] = { "<cmd>GoMockGen<cr>", desc = "Generate Mock" },
-        ["<leader>gcc"] = { "<cmd>GoCmt<cr>", desc = "Generate Comment" },
+        -- Генерация кода:
+        ["<leader>Gc"] = { desc = "Go Generate" },
+        ["<leader>Gcm"] = { "<cmd>GoMockGen<cr>", desc = "Generate Mock" },
+        ["<leader>Gcc"] = { "<cmd>GoCmt<cr>", desc = "Generate Comment" },
 
         -- Управление модулями
-        ["<leader>gm"] = { desc = "Go Modules" },
-        ["<leader>gmt"] = { "<cmd>GoModTidy<cr>", desc = "Go Mod Tidy" },
-        ["<leader>gmg"] = { "<cmd>GoGet<cr>", desc = "Go Get" },
+        ["<leader>Gm"] = { desc = "Go Modules" },
+        ["<leader>Gmt"] = { "<cmd>GoModTidy<cr>", desc = "Go Mod Tidy" },
+        ["<leader>Gmg"] = { "<cmd>GoGet<cr>", desc = "Go Get" },
 
         -- Обновление инструментов
-        ["<leader>gu"] = { desc = "Go Update" },
-        ["<leader>gui"] = { "<cmd>GoInstallBinaries<cr>", desc = "Install Binaries" },
-        ["<leader>guu"] = { "<cmd>GoUpdateBinaries<cr>", desc = "Update Binaries" },
-
-        -- Todo comments
-        ["<leader>ft"] = { "<cmd>TodoTelescope<cr>", desc = "Search TODOs" },
-
-        -- Text case
-        ["<leader>tc"] = { desc = "Text Case" },
-        ["<leader>tcc"] = { function() require("textcase").current_word "to_camel_case" end, desc = "camelCase" },
-        ["<leader>tcs"] = { function() require("textcase").current_word "to_snake_case" end, desc = "snake_case" },
-        ["<leader>tcp"] = { function() require("textcase").current_word "to_pascal_case" end, desc = "PascalCase" },
-
-        -- tables with just a `desc` key will be registered with which-key if it's installed
-        -- this is useful for naming menus
-        -- ["<Leader>b"] = { desc = "Buffers" },
-
-        -- setting a mapping to false will disable it
-        -- ["<C-S>"] = false,
+        ["<leader>Gu"] = { desc = "Go Update" },
+        ["<leader>Gui"] = { "<cmd>GoInstallBinaries<cr>", desc = "Install Binaries" },
+        ["<leader>Guu"] = { "<cmd>GoUpdateBinaries<cr>", desc = "Update Binaries" },
         --
-        -- -- set up Ctrl+click for references
-        ["<C-LeftMouse>"] = { "<LeftMouse><cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to definition" },
-        ["<M-LeftMouse>"] = { "<LeftMouse><cmd>Telescope lsp_references<cr>", desc = "Show references" },
-
-        ["<leader>cl"] = {
-          function() vim.lsp.codelens.refresh() end,
-          desc = "Refresh CodeLens",
-        },
-
-        ["<leader>L"] = { desc = "Linting" },
-        ["<leader>Lc"] = {
-          function()
-            vim.diagnostic.reset()
-            vim.diagnostic.open_float()
-          end,
-          desc = "Show Diagnostics",
-        },
-        ["<leader>Li"] = { "<cmd>NullLsInfo<cr>", desc = "Show Linter Info" },
-
+        -- -- Todo comments
+        -- ["<leader>ft"] = { "<cmd>TodoTelescope<cr>", desc = "Search TODOs" },
+        --
+        -- -- Text case
+        -- ["<leader>tc"] = { desc = "Text Case" },
+        -- ["<leader>tcc"] = { function() require("textcase").current_word "to_camel_case" end, desc = "camelCase" },
+        -- ["<leader>tcs"] = { function() require("textcase").current_word "to_snake_case" end, desc = "snake_case" },
+        -- ["<leader>tcp"] = { function() require("textcase").current_word "to_pascal_case" end, desc = "PascalCase" },
+        --
+        -- -- tables with just a `desc` key will be registered with which-key if it's installed
+        -- -- this is useful for naming menus
+        -- -- ["<Leader>b"] = { desc = "Buffers" },
+        --
+        -- -- setting a mapping to false will disable it
+        -- -- ["<C-S>"] = false,
+        -- --
+        -- -- -- set up Ctrl+click for references
+        -- ["<C-LeftMouse>"] = { "<LeftMouse><cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to definition" },
+        -- ["<M-LeftMouse>"] = { "<LeftMouse><cmd>Telescope lsp_references<cr>", desc = "Show references" },
+        --
+        -- ["<leader>cl"] = {
+        --   function() vim.lsp.codelens.refresh() end,
+        --   desc = "Refresh CodeLens",
+        -- },
+        --
+        -- ["<leader>L"] = { desc = "Linting" },
+        -- ["<leader>Lc"] = {
+        --   function()
+        --     vim.diagnostic.reset()
+        --     vim.diagnostic.open_float()
+        --   end,
+        --   desc = "Show Diagnostics",
+        -- },
+        -- ["<leader>Li"] = { "<cmd>NullLsInfo<cr>", desc = "Show Linter Info" },
+        --
         ------------------------- Python Start --------------------------
         ---
         -- Create Python submenu
