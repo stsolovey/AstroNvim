@@ -37,6 +37,38 @@ return {
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
+      -- We'll use null-ls instead, for possibility to add `.golangci.yml`
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = {
+              staticcheck = false,
+              unusedparams = true,
+            },
+            usePlaceholders = true,
+            gofumpt = true,
+            codelenses = {
+              generate = true,
+              gc_details = true,
+              regenerate_cgo = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            importShortcut = "Both",
+            experimentalPostfixCompletions = true,
+            hints = {
+              assignVariableTypes = false,
+              compositeLiteralFields = false,
+              compositeLiteralTypes = false,
+              constantValues = false,
+              functionTypeParameters = false,
+              parameterNames = false,
+              rangeVariableTypes = false,
+            },
+          },
+        },
+      },
       -- Python configuration
       ruff = {
         init_options = {
