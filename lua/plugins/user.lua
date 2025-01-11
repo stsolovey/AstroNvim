@@ -24,7 +24,10 @@ return {
       goimports = "gopls", -- использовать gopls для импортов
       fillstruct = "gopls", -- использовать gopls для заполнения структур
       gofmt = "gofumpt", -- использовать gofumpt для форматирования
-      max_line_len = 120, -- максимальная длина строки
+      imports = {
+        goimports = true, -- Use goimports
+        gofmt = true, -- Use gofmt
+      },
       tag_transform = false, -- использовать snake_case в json тегах
       test_template = "", -- шаблон для тестов
       test_template_dir = "", -- директория с шаблонами тестов
@@ -192,6 +195,20 @@ return {
       },
     },
   },
+  -- Toggle Explorer Settings (hidden filedirs visibility)
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+      },
+    },
+  },
+
   -- Python virtual environment selector
   {
     "linux-cultist/venv-selector.nvim",
