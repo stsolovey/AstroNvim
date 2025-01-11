@@ -1,4 +1,3 @@
--- In lua/plugins/avante.lua
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
@@ -76,7 +75,6 @@ return {
       },
     }
 
-    -- Your custom mappings
     opts.mappings = {
       diff = {
         ours = "co",
